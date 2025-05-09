@@ -544,7 +544,10 @@ public class PacketWrapper<T extends PacketWrapper<T>> {
             String s = ByteBufHelper.toString(buffer, ByteBufHelper.readerIndex(buffer), j, StandardCharsets.UTF_8);
             ByteBufHelper.readerIndex(buffer, ByteBufHelper.readerIndex(buffer) + j);
             if (s.length() > maxLen) {
-                throw new RuntimeException("The received string length is longer than maximum allowed (" + j + " > " + maxLen + ")");
+                //throw new RuntimeException("The received string length is longer than maximum allowed (" + j + " > " + maxLen + ")");
+                // Consider plugins actually know what they do (And allow them to do amazing stuff!)
+                // Example: 1.8 Server w/Neznamy TAB sending >16 team packets to 1.21 player
+                return s;
             } else {
                 return s;
             }
